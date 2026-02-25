@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Love Nails">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1732a3"/>
+      <stop offset="55%" stop-color="#2aaeea"/>
+      <stop offset="100%" stop-color="#53dff0"/>
+    </linearGradient>
+    <linearGradient id="polish" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b73b67"/>
+      <stop offset="100%" stop-color="#e96ca1"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/>
+  <rect x="24" y="10" width="16" height="10" rx="3" fill="#ecf4ff"/>
+  <rect x="21" y="18" width="22" height="21" rx="6" fill="#10286d"/>
+  <path d="M32 39c8 0 14 4 14 9 0 3-2 5-6 6H24c-4-1-6-3-6-6 0-5 6-9 14-9Z" fill="url(#polish)"/>
+  <path d="M34 42c4 0 7 2 7 4 0 1 0 2-2 3h-3c1-1 2-2 2-3 0-1-2-3-4-4Z" fill="#ffd9ea" opacity=".45"/>
+</svg>
