@@ -534,6 +534,14 @@ h1 {
   background: linear-gradient(90deg, var(--cyan), var(--lilac-soft));
 }
 
+.carousel-note {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: rgba(216, 230, 255, 0.74);
+}
+
 .service-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
