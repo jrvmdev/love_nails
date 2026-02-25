@@ -23,10 +23,19 @@ if (bookingForm) {
   const waNumber = bookingForm.getAttribute("data-wa-number") || "0000000000";
   const floatLink = document.querySelector("[data-wa-float]");
   const dateInput = bookingForm.querySelector('input[name="date"]');
+  const servicePicker = bookingForm.querySelector("[data-service-picker]");
+  const selectedServicesWrap = bookingForm.querySelector("[data-selected-services]");
+  const selectedServices = [];
 
   if (dateInput) {
     const today = new Date().toISOString().split("T")[0];
     dateInput.min = today;
+    dateInput.value = today;
+    dateInput.addEventListener("focus", () => {
+      if (typeof dateInput.showPicker === "function") {
+        dateInput.showPicker();
+      }
+    });
   }
 
   const directText = "Hola! Quiero información de servicios y disponibilidad de turnos en Love Nails.";
@@ -34,20 +43,64 @@ if (bookingForm) {
     floatLink.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(directText)}`;
   }
 
+  const renderSelectedServices = () => {
+    if (!selectedServicesWrap) return;
+    selectedServicesWrap.innerHTML = "";
+    selectedServices.forEach((service, idx) => {
+      const chip = document.createElement("span");
+      chip.className = "service-chip";
+      chip.textContent = service;
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.setAttribute("aria-label", `Quitar ${service}`);
+      removeBtn.textContent = "×";
+      removeBtn.addEventListener("click", () => {
+        selectedServices.splice(idx, 1);
+        renderSelectedServices();
+      });
+      chip.appendChild(removeBtn);
+      selectedServicesWrap.appendChild(chip);
+    });
+  };
+
+  servicePicker?.addEventListener("change", () => {
+    const value = servicePicker.value?.trim();
+    if (!value) return;
+    if (selectedServices.includes(value)) {
+      alert("Ese servicio ya fue agregado.");
+    } else if (selectedServices.length >= 3) {
+      alert("Puedes seleccionar hasta 3 servicios.");
+    } else {
+      selectedServices.push(value);
+      renderSelectedServices();
+    }
+    servicePicker.selectedIndex = 0;
+  });
+
   bookingForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(bookingForm);
-    const service = formData.get("service")?.toString().trim();
     const date = formData.get("date")?.toString().trim();
     const shift = formData.get("shift")?.toString().trim();
     const note = formData.get("note")?.toString().trim();
 
-    if (!service || !shift) return;
+    if (selectedServices.length < 1 || selectedServices.length > 3) {
+      alert("Selecciona entre 1 y 3 servicios.");
+      return;
+    }
+
+    if (!date || !shift) return;
+
+    const minDate = dateInput?.min;
+    if (minDate && date < minDate) {
+      alert("Solo puedes seleccionar fecha desde hoy en adelante.");
+      return;
+    }
 
     const lines = [
       "Hola! Quiero solicitar turno en Love Nails.",
-      `Servicio: ${service}.`,
-      date ? `Fecha solicitada: ${date}.` : "",
+      `Servicios: ${selectedServices.join(", ")}.`,
+      `Fecha solicitada: ${date}.`,
       `Franja horaria preferida: ${shift}.`,
       "Quedo a la espera de confirmacion con los horarios disponibles."
     ];

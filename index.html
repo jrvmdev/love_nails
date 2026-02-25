@@ -256,11 +256,11 @@
         <p class="eyebrow">Reserva</p>
         <h2>Agenda tu próxima cita en Love Nails</h2>
         <p>Elige servicio, fecha y franja horaria (AM/PM). Te responderemos por WhatsApp con horarios disponibles para confirmar tu turno.</p>
-        <form class="booking-form" data-booking-form data-wa-number="0000000000">
+        <form class="booking-form" data-booking-form data-wa-number="5492994628645">
           <div class="form-row">
             <label class="field">
-              <span>Servicio</span>
-              <select name="service" required>
+              <span>Servicios (elige hasta 3)</span>
+              <select name="service_picker" data-service-picker>
                 <option value="" selected disabled>Selecciona un servicio</option>
                 <option>Manicuría</option>
                 <option>Belleza de pies</option>
@@ -271,10 +271,12 @@
                 <option>Ondulación de pestañas</option>
                 <option>Depilación</option>
               </select>
+              <div class="selected-services" data-selected-services aria-live="polite"></div>
+              <p class="field-help">Puedes elegir 1, 2 o hasta 3 servicios.</p>
             </label>
             <label class="field">
               <span>Fecha solicitada</span>
-              <input type="date" name="date" />
+              <input type="date" name="date" required />
             </label>
           </div>
           <div class="form-row">
