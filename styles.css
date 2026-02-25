@@ -866,6 +866,19 @@ h1 {
   font-size: 0.86rem;
 }
 
+.footer p {
+  margin: 0.25rem 0;
+}
+
+.footer a {
+  color: #8ee8ff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);

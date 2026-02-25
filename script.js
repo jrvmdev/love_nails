@@ -20,12 +20,12 @@ revealElements.forEach((element) => observer.observe(element));
 
 const bookingForm = document.querySelector("[data-booking-form]");
 if (bookingForm) {
-  const waNumber = bookingForm.getAttribute("data-wa-number") || "0000000000";
   const floatLink = document.querySelector("[data-wa-float]");
   const dateInput = bookingForm.querySelector('input[name="date"]');
   const servicePicker = bookingForm.querySelector("[data-service-picker]");
   const selectedServicesWrap = bookingForm.querySelector("[data-selected-services]");
   const selectedServices = [];
+  const waProxy = "/api/whatsapp";
 
   if (dateInput) {
     const today = new Date().toISOString().split("T")[0];
@@ -40,7 +40,7 @@ if (bookingForm) {
 
   const directText = "Hola! Quiero información de servicios y disponibilidad de turnos en Love Nails.";
   if (floatLink) {
-    floatLink.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(directText)}`;
+    floatLink.href = `${waProxy}?m=${encodeURIComponent(directText)}`;
   }
 
   const renderSelectedServices = () => {
@@ -108,7 +108,7 @@ if (bookingForm) {
     if (note) lines.push(`Comentario: ${note}.`);
 
     const message = lines.filter(Boolean).join("\n");
-    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+    const url = `${waProxy}?m=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   });
 }
